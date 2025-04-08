@@ -10,13 +10,14 @@ public class Child {
     private String name;
     private int age;
     @ManyToOne
-    private Relative relativeManager;
+    @JoinColumn(name = "relative_id")
+    private Relative relative;
 
-    public Child(Long id, String name, int age, Relative relative) {
+    public Child(String name, int age, Relative relative) {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.relativeManager = relative;
+        this.relative = relative;
     }
 
     public Long getId() {
@@ -47,10 +48,10 @@ public class Child {
     }
 
     public Relative getRelativeManager() {
-        return relativeManager;
+        return relative;
     }
 
-    public void setRelativeManager(Relative relativeManager) {
-        this.relativeManager = relativeManager;
+    public void setRelativeManager(Relative relative) {
+        this.relative = relative;
     }
 }

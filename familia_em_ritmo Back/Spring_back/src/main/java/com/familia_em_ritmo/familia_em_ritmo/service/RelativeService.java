@@ -5,6 +5,7 @@ import com.familia_em_ritmo.familia_em_ritmo.repository.RelativeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RelativeService {
@@ -20,5 +21,9 @@ public class RelativeService {
 
     public List<Relative> getAll(){
         return relativeRepository.findAll();
+    }
+
+    public Optional<Relative> getById(Long id){
+        return relativeRepository.findById(id);
     }
 }
