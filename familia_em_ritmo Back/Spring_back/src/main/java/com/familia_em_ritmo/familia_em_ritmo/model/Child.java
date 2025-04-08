@@ -1,9 +1,6 @@
 package com.familia_em_ritmo.familia_em_ritmo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Child {
@@ -12,21 +9,21 @@ public class Child {
     private Long id;
     private String name;
     private int age;
+    @ManyToOne
+    private Relative relativeManager;
 
-    public Child() {
-    }
-
-    public Child(long id, String name, int age) {
+    public Child(Long id, String name, int age, Relative relative) {
         this.id = id;
         this.name = name;
         this.age = age;
+        this.relativeManager = relative;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,5 +41,16 @@ public class Child {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Child() {
+    }
+
+    public Relative getRelativeManager() {
+        return relativeManager;
+    }
+
+    public void setRelativeManager(Relative relativeManager) {
+        this.relativeManager = relativeManager;
     }
 }
