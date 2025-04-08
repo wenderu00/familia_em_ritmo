@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class RoutineContent extends StatelessWidget {
+class ProfileContent extends StatelessWidget {
   final List<Map<String, String>> kids = [
-    {'title': 'Rotina 1', 'subtitle': 'Nascimento: 01/01/2020'},
-    {'title': 'Rotina 2', 'subtitle': 'Nascimento: 02/02/2021'},
+    {'title': 'Criança 1', 'subtitle': 'Nascimento: 01/01/2020'},
+    {'title': 'Criança 2', 'subtitle': 'Nascimento: 02/02/2021'},
   ];
 
-  RoutineContent({Key? key}) : super(key: key);
+  ProfileContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
