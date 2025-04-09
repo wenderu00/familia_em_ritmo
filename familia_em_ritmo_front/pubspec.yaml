@@ -46,6 +46,8 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.14.3
+  table_calendar: ^3.0.8
+
 
 flutter_icons:
   android: true
@@ -81,8 +83,11 @@ flutter:
     - assets/profileF.png
     - assets/Familia_em_Ritmo.png
     - assets/Edit.png
-    - assets/Lixeira.png
+    - assets/lixeira.png
     - assets/Adicionar.png
+    - assets/apagar.png
+    - assets/star.png
+    - assets/estrela.jpeg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

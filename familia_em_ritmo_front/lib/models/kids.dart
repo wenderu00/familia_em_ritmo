@@ -57,7 +57,7 @@ class _KidsContentState extends State<KidsContent> {
       context: context,
       builder: (context) {
         return StatefulBuilder(
-          builder: (context, setState) {
+          builder: (context, setStateDialog) {
             return AlertDialog(
               title:
                   Text(index == null ? 'Adicionar Criança' : 'Editar Criança'),
@@ -87,7 +87,7 @@ class _KidsContentState extends State<KidsContent> {
                             lastDate: DateTime.now(),
                           );
                           if (date != null) {
-                            setState(() => selectedDate = date);
+                            setStateDialog(() => selectedDate = date);
                           }
                         },
                       ),
@@ -125,22 +125,27 @@ class _KidsContentState extends State<KidsContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:
+          Colors.transparent, // Se estiver usando um background customizado
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddEditKidDialog(context),
-        child: const Icon(Icons.add),
+        child: Image.asset(
+          'assets/Adicionar.png',
+          width: 100,
+          height: 100,
+        ),
       ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-                'assets/background.png'), // Altere para o caminho da sua imagem
+            image: AssetImage('assets/background.png'),
             fit: BoxFit.cover,
           ),
         ),
         child: kids.isEmpty
             ? const Center(
                 child: Text(
-                  'Nenhuma criança cadastrada\nClique no botão + para adicionar',
+                  '',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
@@ -153,13 +158,28 @@ class _KidsContentState extends State<KidsContent> {
                 itemCount: kids.length,
                 itemBuilder: (context, index) {
                   final kid = kids[index];
-                  return Card(
+                  return Container(
                     margin:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    elevation: 2,
-                    color: Colors.white.withOpacity(0.9),
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border:
+                          Border.all(color: const Color(0xFF1155A3), width: 2),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(2, 2),
+                        ),
+                      ],
+                    ),
                     child: ListTile(
-                      leading: const Icon(Icons.child_care),
+                      leading: Image.asset(
+                        'assets/star.png',
+                        width: 40,
+                        height: 40,
+                      ),
                       title: Text(
                         kid.name,
                         textAlign: TextAlign.center,
@@ -173,12 +193,20 @@ class _KidsContentState extends State<KidsContent> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.edit),
+                            icon: Image.asset(
+                              'assets/Edit.png',
+                              width: 24,
+                              height: 24,
+                            ),
                             onPressed: () =>
                                 _showAddEditKidDialog(context, index: index),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.delete),
+                            icon: Image.asset(
+                              'assets/lixeira.png',
+                              width: 24,
+                              height: 24,
+                            ),
                             onPressed: () => _deleteKid(index),
                           ),
                         ],
