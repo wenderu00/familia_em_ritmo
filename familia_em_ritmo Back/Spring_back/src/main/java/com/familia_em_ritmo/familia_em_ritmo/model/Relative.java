@@ -1,5 +1,6 @@
 package com.familia_em_ritmo.familia_em_ritmo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.LinkedList;
@@ -13,7 +14,16 @@ public class Relative {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "relative", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Child> managedChildren;
+
+    public List<Child> getManagedChildren() {
+        return managedChildren;
+    }
+
+    public void setManagedChildren(List<Child> managedChildren) {
+        this.managedChildren = managedChildren;
+    }
 
     public Relative(Long id, String name) {
         this.id = id;

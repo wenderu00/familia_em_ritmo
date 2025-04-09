@@ -1,5 +1,7 @@
 package com.familia_em_ritmo.familia_em_ritmo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class Child {
     private int age;
     @ManyToOne
     @JoinColumn(name = "relative_id")
+    @JsonBackReference
     private Relative relative;
 
     public Child(String name, int age, Relative relative) {
