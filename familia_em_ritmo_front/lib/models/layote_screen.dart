@@ -14,9 +14,9 @@ class _LayoteScreenState extends State<LayoteScreen> {
   int _currentIndex = 0;
 
   final List<String> _titles = [
-    'Crianças',
-    'Rotinas',
-    'Perfil',
+    'Família em Ritmo',
+    'Família em Ritmo',
+    'Família em Ritmo',
   ];
 
   final List<Widget> _pages = [
