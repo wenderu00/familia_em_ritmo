@@ -1,14 +1,11 @@
-package com.familia_em_ritmo.familia_em_ritmo.infra.dto;
+package com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.create;
 
-public class ChildDTO {
+public class ChildRequestDTO {
     private String name;
     private int age;
     private Long relativeId;
 
-    public ChildDTO() {
-    }
-
-    public ChildDTO(String name, int age, Long relativeId) {
+    public ChildRequestDTO(String name, int age, Long relativeId) {
         this.name = name;
         this.age = age;
         this.relativeId = relativeId;
