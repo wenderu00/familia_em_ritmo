@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'change_password.dart'; // Certifique-se de que o caminho está correto
 
 class ProfileContent extends StatefulWidget {
@@ -10,16 +12,12 @@ class ProfileContent extends StatefulWidget {
 
 class _ProfileContentState extends State<ProfileContent> {
   final _formKeyProfile = GlobalKey<FormState>();
-
-  // Flag para controle da edição de perfil
   bool isEditingProfile = false;
 
-  // Dados do perfil
   String nome = '';
-  String email = '';
-  String telefone = '';
+  String email = ''; // não usado no back-end ainda
+  String telefone = ''; // idem
 
-  // Controllers do perfil
   late TextEditingController nomeController;
   late TextEditingController emailController;
   late TextEditingController telefoneController;
@@ -27,9 +25,51 @@ class _ProfileContentState extends State<ProfileContent> {
   @override
   void initState() {
     super.initState();
-    nomeController = TextEditingController(text: nome);
-    emailController = TextEditingController(text: email);
-    telefoneController = TextEditingController(text: telefone);
+    nomeController = TextEditingController();
+    emailController = TextEditingController();
+    telefoneController = TextEditingController();
+
+    fetchRelativeById(1); // Exemplo com ID fixo
+  }
+
+  Future<void> fetchRelativeById(int id) async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:8080/relative/by_id?id=$id'),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        setState(() {
+          nome = data['name'];
+          nomeController.text = nome;
+        });
+      } else {
+        throw Exception('Erro ao buscar dados');
+      }
+    } catch (e) {
+      print('Erro na requisição: $e');
+    }
+  }
+
+  Future<void> createRelative(String name) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost/relative'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'name': name}),
+      );
+
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Dados salvos com sucesso!')),
+        );
+      } else {
+        throw Exception('Erro ao salvar dados');
+      }
+    } catch (e) {
+      print('Erro ao criar familiar: $e');
+    }
   }
 
   @override
@@ -75,7 +115,6 @@ class _ProfileContentState extends State<ProfileContent> {
                     enabled: isEditingProfile,
                   ),
                   const SizedBox(height: 20),
-                  // Botão de salvar ou editar perfil
                   isEditingProfile
                       ? ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -91,15 +130,9 @@ class _ProfileContentState extends State<ProfileContent> {
                           onPressed: () {
                             if (_formKeyProfile.currentState!.validate()) {
                               setState(() {
-                                nome = nomeController.text;
-                                email = emailController.text;
-                                telefone = telefoneController.text;
                                 isEditingProfile = false;
                               });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Cadastro atualizado!')),
-                              );
+                              createRelative(nomeController.text);
                             }
                           },
                           child: const Text('Salvar alterações'),
@@ -125,7 +158,6 @@ class _ProfileContentState extends State<ProfileContent> {
                           child: const Text('Editar Perfil'),
                         ),
                   const SizedBox(height: 10),
-                  // Botão para ir à tela de alterar senha
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -139,7 +171,6 @@ class _ProfileContentState extends State<ProfileContent> {
                       ),
                     ),
                     onPressed: () {
-                      // Navega para a tela de alterar senha
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => const ChangePasswordView(),
@@ -157,7 +188,6 @@ class _ProfileContentState extends State<ProfileContent> {
     );
   }
 
-  /// Widget reutilizável para campos de entrada do perfil
   Widget _buildInputCard({
     required IconData icon,
     required String label,
