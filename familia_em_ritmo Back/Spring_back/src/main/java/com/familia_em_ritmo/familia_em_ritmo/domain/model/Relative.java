@@ -1,4 +1,4 @@
-package com.familia_em_ritmo.familia_em_ritmo.model;
+package com.familia_em_ritmo.familia_em_ritmo.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -15,7 +15,7 @@ public class Relative {
     private String name;
     @OneToMany(mappedBy = "relative", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Child> managedChildren;
+    private List<Child> managedChildren = new LinkedList<Child>();;
 
     public List<Child> getManagedChildren() {
         return managedChildren;
@@ -25,10 +25,8 @@ public class Relative {
         this.managedChildren = managedChildren;
     }
 
-    public Relative(Long id, String name) {
-        this.id = id;
+    public Relative(String name) {
         this.name = name;
-        this.managedChildren = new LinkedList<Child>();
     }
 
     public Relative() {

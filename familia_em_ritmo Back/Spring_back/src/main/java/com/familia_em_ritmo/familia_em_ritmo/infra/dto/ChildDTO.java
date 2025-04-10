@@ -1,4 +1,4 @@
-package com.familia_em_ritmo.familia_em_ritmo.controller.dto;
+package com.familia_em_ritmo.familia_em_ritmo.infra.dto;
 
 public class ChildDTO {
     private String name;

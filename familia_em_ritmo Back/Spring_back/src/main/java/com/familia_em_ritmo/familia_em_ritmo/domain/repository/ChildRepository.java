@@ -1,6 +1,6 @@
-package com.familia_em_ritmo.familia_em_ritmo.repository;
+package com.familia_em_ritmo.familia_em_ritmo.domain.repository;
 
-import com.familia_em_ritmo.familia_em_ritmo.model.Child;
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.Child;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

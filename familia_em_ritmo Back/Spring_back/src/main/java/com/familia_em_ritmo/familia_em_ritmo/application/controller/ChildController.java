@@ -1,10 +1,10 @@
-package com.familia_em_ritmo.familia_em_ritmo.controller;
+package com.familia_em_ritmo.familia_em_ritmo.application.controller;
 
-import com.familia_em_ritmo.familia_em_ritmo.controller.dto.ChildDTO;
-import com.familia_em_ritmo.familia_em_ritmo.model.Child;
-import com.familia_em_ritmo.familia_em_ritmo.model.Relative;
-import com.familia_em_ritmo.familia_em_ritmo.service.ChildService;
-import com.familia_em_ritmo.familia_em_ritmo.service.RelativeService;
+import com.familia_em_ritmo.familia_em_ritmo.infra.dto.ChildDTO;
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.Child;
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.Relative;
+import com.familia_em_ritmo.familia_em_ritmo.domain.service.ChildService;
+import com.familia_em_ritmo.familia_em_ritmo.domain.service.RelativeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.familia_em_ritmo.familia_em_ritmo.model;
+package com.familia_em_ritmo.familia_em_ritmo.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,7 +17,6 @@ public class Child {
     private Relative relative;
 
     public Child(String name, int age, Relative relative) {
-        this.id = id;
         this.name = name;
         this.age = age;
         this.relative = relative;

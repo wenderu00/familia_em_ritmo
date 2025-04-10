@@ -1,7 +1,7 @@
-package com.familia_em_ritmo.familia_em_ritmo.service;
+package com.familia_em_ritmo.familia_em_ritmo.domain.service;
 
-import com.familia_em_ritmo.familia_em_ritmo.model.Relative;
-import com.familia_em_ritmo.familia_em_ritmo.repository.RelativeRepository;
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.Relative;
+import com.familia_em_ritmo.familia_em_ritmo.domain.repository.RelativeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
