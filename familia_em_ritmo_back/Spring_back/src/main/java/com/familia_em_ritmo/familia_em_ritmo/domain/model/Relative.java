@@ -15,7 +15,14 @@ public class Relative {
     private String name;
     @OneToMany(mappedBy = "relative", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Child> managedChildren = new LinkedList<Child>();;
+    private List<Child> managedChildren = new LinkedList<Child>();
+    @ManyToMany
+    @JoinTable(
+            name = "observer_child",
+            joinColumns = @JoinColumn(name = "child_id"),
+            inverseJoinColumns = @JoinColumn(name = "relative_id")
+    )
+    private List<Child> observedChildren = new LinkedList<Child>();
 
     public List<Child> getManagedChildren() {
         return managedChildren;
@@ -47,4 +54,22 @@ public class Relative {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<Child> getObservedChildren() {
+        return observedChildren;
+    }
+
+    public void setObservedChildren(List<Child> observedChildren) {
+        this.observedChildren = observedChildren;
+    }
+
+    public void addObservedChild(Child observedChild){
+        this.observedChildren.add(observedChild);
+        observedChild.getObservers().add(this);
+    }
+    public void removeObservedChild(Child observedChild){
+        this.observedChildren.remove(observedChild);
+        observedChild.getObservers().remove(this);
+    }
+
 }

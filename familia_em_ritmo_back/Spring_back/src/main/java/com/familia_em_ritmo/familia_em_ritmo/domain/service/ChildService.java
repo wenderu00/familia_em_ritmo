@@ -21,4 +21,8 @@ public class ChildService {
     public List<Child> getAll(){
         return this.childRepository.findAll();
     }
+
+    public Child getById(Long id){
+        return childRepository.findById(id).get();
+    }
 }

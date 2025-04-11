@@ -6,11 +6,13 @@ public class RelativeByIdResponseDTO {
     private Long id;
     private String name;
     private List<ChildListItemDTO> childs;
+    private List<ChildListItemDTO> observedChilds;
 
-    public RelativeByIdResponseDTO(Long id, String name, List<ChildListItemDTO> childs) {
+    public RelativeByIdResponseDTO(Long id, String name, List<ChildListItemDTO> childs, List<ChildListItemDTO> observedChilds) {
         this.id = id;
         this.name = name;
         this.childs = childs;
+        this.observedChilds = observedChilds;
     }
 
     public Long getId() {
@@ -35,5 +37,13 @@ public class RelativeByIdResponseDTO {
 
     public void setChilds(List<ChildListItemDTO> childs) {
         this.childs = childs;
+    }
+
+    public List<ChildListItemDTO> getObservedChilds() {
+        return observedChilds;
+    }
+
+    public void setObservedChilds(List<ChildListItemDTO> observedChilds) {
+        this.observedChilds = observedChilds;
     }
 }

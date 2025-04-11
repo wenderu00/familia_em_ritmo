@@ -1,7 +1,10 @@
 package com.familia_em_ritmo.familia_em_ritmo.application.controller;
 
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.Child;
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.Relative;
+import com.familia_em_ritmo.familia_em_ritmo.domain.service.ChildService;
 import com.familia_em_ritmo.familia_em_ritmo.domain.service.RelativeService;
+import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.add_observer.IdsObserverToChildDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.create.RelativeRequestDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.create.RelativeResponseDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.get_all.ListRelativeResponseDTO;
@@ -11,15 +14,16 @@ import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.get_b
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/relative")
 public class RelativeController {
     private final RelativeService relativeService;
+    private final ChildService childService;
 
-    public RelativeController(RelativeService relativeService) {
+    public RelativeController(RelativeService relativeService, ChildService childService) {
         this.relativeService = relativeService;
+        this.childService = childService;
     }
 
     @PostMapping
@@ -48,9 +52,26 @@ public class RelativeController {
                 relativeById.getManagedChildren()
                         .stream()
                         .map(child -> new ChildListItemDTO(child.getId(), child.getName(), child.getAge()))
+                        .toList(),
+                relativeById.getObservedChildren()
+                        .stream()
+                        .map(child -> new ChildListItemDTO(child.getId(), child.getName(), child.getAge()))
                         .toList()
         );
         return responseRelative;
     }
 
+    @PostMapping("/add_observer")
+    public String addObserverToChild(@RequestBody IdsObserverToChildDTO request_ids){
+        Relative relativeManager = this.relativeService.getById(request_ids.getRelative_id()).get();
+        Relative relativeObserver = this.relativeService.getById(request_ids.getObserver_id()).get();
+        Child child = this.childService.getById(request_ids.getChild_id());
+        if(relativeManager.getId().equals(child.getRelativeManager().getId())){
+            child.addObserver(relativeObserver);
+            this.relativeService.create(relativeObserver);
+            this.childService.create(child);
+            return "sucesso";
+        }
+        return "deu errado";
+    }
 }
