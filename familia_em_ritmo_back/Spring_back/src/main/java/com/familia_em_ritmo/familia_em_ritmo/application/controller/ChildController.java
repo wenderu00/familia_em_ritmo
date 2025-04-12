@@ -10,6 +10,7 @@ import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_all.
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_all.ListChildResponseDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_by_id.ChildGetByIdResponseDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_by_id.ObserverListItemResponseDTO;
+import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_by_id.RoutineContainerGetByIdResponseDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -68,8 +69,18 @@ public class ChildController {
                 searchedChild.getObservers()
                         .stream()
                         .map(relative -> new ObserverListItemResponseDTO(relative.getId(), relative.getName()))
-                        .toList()
-
+                        .toList(),
+                new RoutineContainerGetByIdResponseDTO(
+                        searchedChild.getRoutineContainer().getId(),
+                        searchedChild.getRoutineContainer().getSleepRoutine().getId(),
+                        searchedChild.getRoutineContainer().getBehavioralRoutine().getId(),
+                        searchedChild.getRoutineContainer().getExerciseRoutine().getId(),
+                        searchedChild.getRoutineContainer().getFamilyRoutine().getId(),
+                        searchedChild.getRoutineContainer().getFeedingRoutine().getId(),
+                        searchedChild.getRoutineContainer().getFunRoutine().getId(),
+                        searchedChild.getRoutineContainer().getHygieneRoutine().getId(),
+                        searchedChild.getRoutineContainer().getStudyRoutine().getId()
+                )
         );
         return response;
 

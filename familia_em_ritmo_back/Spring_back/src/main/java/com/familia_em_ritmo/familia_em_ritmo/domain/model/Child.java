@@ -21,6 +21,12 @@ public class Child {
     private Relative relative;
     @ManyToMany(mappedBy = "observedChildren")
     private List<Relative> observers = new LinkedList<Relative>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "routine_container_id", referencedColumnName = "id")
+    private RoutineContainer routineContainer = new RoutineContainer();
+
+    public Child() {
+    }
 
     public Child(String name, int age, Relative relative) {
         this.name = name;
@@ -52,9 +58,6 @@ public class Child {
         this.age = age;
     }
 
-    public Child() {
-    }
-
     public Relative getRelativeManager() {
         return relative;
     }
@@ -80,4 +83,13 @@ public class Child {
         this.observers.remove(observer);
         observer.getObservedChildren().remove(this);
     }
+
+    public RoutineContainer getRoutineContainer() {
+        return routineContainer;
+    }
+
+    public void setRoutineContainer(RoutineContainer routineContainer) {
+        this.routineContainer = routineContainer;
+    }
+
 }

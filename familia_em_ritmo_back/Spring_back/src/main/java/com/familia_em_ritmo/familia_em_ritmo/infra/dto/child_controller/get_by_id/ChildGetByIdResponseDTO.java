@@ -1,6 +1,7 @@
 package com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_by_id;
 
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.Relative;
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.RoutineContainer;
 
 import java.util.List;
 
@@ -10,13 +11,15 @@ public class ChildGetByIdResponseDTO {
     private int age;
     private ObserverListItemResponseDTO relative;
     private List<ObserverListItemResponseDTO> observers;
+    private RoutineContainerGetByIdResponseDTO routineContainer;
 
-    public ChildGetByIdResponseDTO(Long id, String name, int age, ObserverListItemResponseDTO relative, List<ObserverListItemResponseDTO> observers) {
+    public ChildGetByIdResponseDTO(Long id, String name, int age, ObserverListItemResponseDTO relative, List<ObserverListItemResponseDTO> observers, RoutineContainerGetByIdResponseDTO routineContainer) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.relative = relative;
         this.observers = observers;
+        this.routineContainer = routineContainer;
     }
 
     public Long getId() {
@@ -57,5 +60,13 @@ public class ChildGetByIdResponseDTO {
 
     public void setObservers(List<ObserverListItemResponseDTO> observers) {
         this.observers = observers;
+    }
+
+    public RoutineContainerGetByIdResponseDTO getRoutineContainer() {
+        return routineContainer;
+    }
+
+    public void setRoutineContainer(RoutineContainerGetByIdResponseDTO routineContainer) {
+        this.routineContainer = routineContainer;
     }
 }
