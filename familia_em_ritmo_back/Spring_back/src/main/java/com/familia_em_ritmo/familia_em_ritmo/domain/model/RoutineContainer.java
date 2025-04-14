@@ -1,7 +1,11 @@
 package com.familia_em_ritmo.familia_em_ritmo.domain.model;
 
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.routines.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "routine_container")
@@ -45,6 +49,9 @@ public class RoutineContainer {
     @JoinColumn(name = "study_routine_id", referencedColumnName = "id")
     private StudyRoutine studyRoutine = new StudyRoutine();
 
+    @OneToMany(mappedBy = "routineContainer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<GenericRoutine> genericRoutineList = new LinkedList<GenericRoutine>();
 
     public RoutineContainer() {
     }
@@ -132,5 +139,21 @@ public class RoutineContainer {
 
     public void setStudyRoutine(StudyRoutine studyRoutine) {
         this.studyRoutine = studyRoutine;
+    }
+
+    public List<GenericRoutine> getGenericRoutineList() {
+        return genericRoutineList;
+    }
+
+    public void setGenericRoutineList(List<GenericRoutine> genericRoutineList) {
+        this.genericRoutineList = genericRoutineList;
+    }
+
+    public void addGenericRoutine(GenericRoutine genericRoutine){
+        this.genericRoutineList.add(genericRoutine);
+    }
+
+    public void removeGenericRoutine(GenericRoutine genericRoutine){
+        this.genericRoutineList.remove(genericRoutine);
     }
 }

@@ -1,5 +1,6 @@
 package com.familia_em_ritmo.familia_em_ritmo.application.controller;
 
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.routines.GenericRoutine;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.create.ChildRequestDTO;
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.Child;
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.Relative;
@@ -79,7 +80,11 @@ public class ChildController {
                         searchedChild.getRoutineContainer().getFeedingRoutine().getId(),
                         searchedChild.getRoutineContainer().getFunRoutine().getId(),
                         searchedChild.getRoutineContainer().getHygieneRoutine().getId(),
-                        searchedChild.getRoutineContainer().getStudyRoutine().getId()
+                        searchedChild.getRoutineContainer().getStudyRoutine().getId(),
+                        searchedChild.getRoutineContainer().getGenericRoutineList()
+                                .stream()
+                                .map(GenericRoutine::getId)
+                                .toList()
                 )
         );
         return response;

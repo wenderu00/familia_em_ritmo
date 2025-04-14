@@ -1,5 +1,7 @@
 package com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_by_id;
 
+import java.util.List;
+
 public class RoutineContainerGetByIdResponseDTO {
     private Long routineContainerId;
     private Long sleepRoutineId;
@@ -10,6 +12,7 @@ public class RoutineContainerGetByIdResponseDTO {
     private Long funRoutineId;
     private Long hygieneRoutineId;
     private Long studyRoutineId;
+    private List<Long> genericRoutineIds;
 
     public RoutineContainerGetByIdResponseDTO() {
     }
@@ -23,7 +26,8 @@ public class RoutineContainerGetByIdResponseDTO {
             Long feedingRoutineId,
             Long funRoutineId,
             Long hygieneRoutineId,
-            Long studyRoutineId
+            Long studyRoutineId,
+            List<Long> genericRoutineIds
     ) {
         this.routineContainerId = routineContainerId;
         this.sleepRoutineId = sleepRoutineId;
@@ -34,6 +38,7 @@ public class RoutineContainerGetByIdResponseDTO {
         this.funRoutineId = funRoutineId;
         this.hygieneRoutineId = hygieneRoutineId;
         this.studyRoutineId = studyRoutineId;
+        this.genericRoutineIds = genericRoutineIds;
     }
 
     public Long getRoutineContainerId() {
@@ -106,5 +111,13 @@ public class RoutineContainerGetByIdResponseDTO {
 
     public void setStudyRoutineId(Long studyRoutineId) {
         this.studyRoutineId = studyRoutineId;
+    }
+
+    public List<Long> getGenericRoutineIds() {
+        return genericRoutineIds;
+    }
+
+    public void setGenericRoutineIds(List<Long> genericRoutineIds) {
+        this.genericRoutineIds = genericRoutineIds;
     }
 }
