@@ -5,6 +5,7 @@ import com.familia_em_ritmo.familia_em_ritmo.domain.model.Relative;
 import com.familia_em_ritmo.familia_em_ritmo.domain.service.ChildService;
 import com.familia_em_ritmo.familia_em_ritmo.domain.service.RelativeService;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.add_observer.IdsObserverToChildDTO;
+import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.add_observer.ObserverSucessMessageDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.create.RelativeRequestDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.create.RelativeResponseDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.get_all.ListRelativeResponseDTO;
@@ -62,7 +63,7 @@ public class RelativeController {
     }
 
     @PostMapping("/add_observer")
-    public String addObserverToChild(@RequestBody IdsObserverToChildDTO request_ids){
+    public ObserverSucessMessageDTO addObserverToChild(@RequestBody IdsObserverToChildDTO request_ids){
         Relative relativeManager = this.relativeService.getById(request_ids.getRelative_id()).get();
         Relative relativeObserver = this.relativeService.getById(request_ids.getObserver_id()).get();
         Child child = this.childService.getById(request_ids.getChild_id());
@@ -70,8 +71,8 @@ public class RelativeController {
             child.addObserver(relativeObserver);
             this.relativeService.create(relativeObserver);
             this.childService.create(child);
-            return "sucesso";
+            return new ObserverSucessMessageDTO("Success");
         }
-        return "deu errado";
+        return new ObserverSucessMessageDTO("Fail");
     }
 }
