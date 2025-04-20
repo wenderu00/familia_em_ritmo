@@ -1,8 +1,13 @@
 package com.familia_em_ritmo.familia_em_ritmo.domain.model.routines;
 
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.RoutineContainer;
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.missions.GenericMission;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "generic_routine")
@@ -15,6 +20,10 @@ public class GenericRoutine {
     @JoinColumn(name = "routine_container_id")
     @JsonBackReference
     private RoutineContainer routineContainer;
+
+    @OneToMany(mappedBy = "genericRoutine", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<GenericMission> genericMissionList = new LinkedList<GenericMission>();
 
     public GenericRoutine() {
     }
@@ -38,5 +47,20 @@ public class GenericRoutine {
 
     public void setRoutineContainer(RoutineContainer routineContainer) {
         this.routineContainer = routineContainer;
+    }
+
+    public List<GenericMission> getGenericMissionList() {
+        return genericMissionList;
+    }
+
+    public void setGenericMissionList(List<GenericMission> genericMissionList) {
+        this.genericMissionList = genericMissionList;
+    }
+    public void addGenericMission(GenericMission mission){
+        this.genericMissionList.add(mission);
+    }
+
+    public void removeGenericMission(GenericMission mission){
+        this.genericMissionList.remove(mission);
     }
 }

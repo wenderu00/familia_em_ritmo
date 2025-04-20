@@ -1,29 +1,29 @@
 package com.familia_em_ritmo.familia_em_ritmo.domain.model.missions;
 
-import com.familia_em_ritmo.familia_em_ritmo.domain.model.routines.ExerciseRoutine;
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.routines.SleepRoutine;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "exercise_mission")
-public class ExerciseMission {
+@Table(name = "sleep_mission")
+public class SleepMission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "exercise_routine_id")
+    @JoinColumn(name = "sleep_routine_id")
     @JsonBackReference
-    private ExerciseRoutine exerciseRoutine;
+    private SleepRoutine sleepRoutine;
 
     private boolean complete = false;
 
-    public ExerciseMission() {
+    public SleepMission() {
     }
 
-    public ExerciseMission(Long id, ExerciseRoutine exerciseRoutine) {
+    public SleepMission(Long id, SleepRoutine sleepRoutine) {
         this.id = id;
-        this.exerciseRoutine = exerciseRoutine;
+        this.sleepRoutine = sleepRoutine;
     }
 
     public Long getId() {
@@ -34,12 +34,12 @@ public class ExerciseMission {
         this.id = id;
     }
 
-    public ExerciseRoutine getExerciseRoutine() {
-        return exerciseRoutine;
+    public SleepRoutine getSleepRoutine() {
+        return sleepRoutine;
     }
 
-    public void setExerciseRoutine(ExerciseRoutine exerciseRoutine) {
-        this.exerciseRoutine = exerciseRoutine;
+    public void setSleepRoutine(SleepRoutine sleepRoutine) {
+        this.sleepRoutine = sleepRoutine;
     }
 
     public boolean isComplete() {

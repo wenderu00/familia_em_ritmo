@@ -1,29 +1,29 @@
 package com.familia_em_ritmo.familia_em_ritmo.domain.model.missions;
 
-import com.familia_em_ritmo.familia_em_ritmo.domain.model.routines.ExerciseRoutine;
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.routines.FamilyRoutine;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "exercise_mission")
-public class ExerciseMission {
+@Table(name = "family_mission")
+public class FamilyMission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "exercise_routine_id")
+    @JoinColumn(name = "family_routine_id")
     @JsonBackReference
-    private ExerciseRoutine exerciseRoutine;
+    private FamilyRoutine familyRoutine;
 
     private boolean complete = false;
 
-    public ExerciseMission() {
+    public FamilyMission() {
     }
 
-    public ExerciseMission(Long id, ExerciseRoutine exerciseRoutine) {
+    public FamilyMission(Long id, FamilyRoutine familyRoutine) {
         this.id = id;
-        this.exerciseRoutine = exerciseRoutine;
+        this.familyRoutine = familyRoutine;
     }
 
     public Long getId() {
@@ -34,12 +34,12 @@ public class ExerciseMission {
         this.id = id;
     }
 
-    public ExerciseRoutine getExerciseRoutine() {
-        return exerciseRoutine;
+    public FamilyRoutine getFamilyRoutine() {
+        return familyRoutine;
     }
 
-    public void setExerciseRoutine(ExerciseRoutine exerciseRoutine) {
-        this.exerciseRoutine = exerciseRoutine;
+    public void setFamilyRoutine(FamilyRoutine familyRoutine) {
+        this.familyRoutine = familyRoutine;
     }
 
     public boolean isComplete() {

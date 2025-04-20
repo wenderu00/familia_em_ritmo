@@ -1,7 +1,12 @@
 package com.familia_em_ritmo.familia_em_ritmo.domain.model.routines;
 
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.RoutineContainer;
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.missions.SleepMission;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "sleep_routine")
@@ -12,6 +17,10 @@ public class SleepRoutine {
 
     @OneToOne(mappedBy = "sleepRoutine")
     private RoutineContainer routineContainer;
+
+    @OneToMany(mappedBy = "sleepRoutine", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<SleepMission> sleepMissionList = new LinkedList<SleepMission>();
 
     public SleepRoutine() {
     }
@@ -35,5 +44,21 @@ public class SleepRoutine {
 
     public void setRoutineContainer(RoutineContainer routineContainer) {
         this.routineContainer = routineContainer;
+    }
+
+    public List<SleepMission> getSleepMissionList() {
+        return sleepMissionList;
+    }
+
+    public void setSleepMissionList(List<SleepMission> sleepMissionList) {
+        this.sleepMissionList = sleepMissionList;
+    }
+
+    public void addSleepMission(SleepMission mission){
+        this.sleepMissionList.add(mission);
+    }
+
+    public void removeSleepMission(SleepMission mission){
+        this.sleepMissionList.remove(mission);
     }
 }
