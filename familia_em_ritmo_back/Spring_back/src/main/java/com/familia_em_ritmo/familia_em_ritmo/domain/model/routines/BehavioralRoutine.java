@@ -1,7 +1,12 @@
 package com.familia_em_ritmo.familia_em_ritmo.domain.model.routines;
 
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.RoutineContainer;
+import com.familia_em_ritmo.familia_em_ritmo.domain.model.missions.BehavioralMission;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "behavioral_routine")
@@ -12,6 +17,10 @@ public class BehavioralRoutine {
 
     @OneToOne(mappedBy = "behavioralRoutine")
     private RoutineContainer routineContainer;
+
+    @OneToMany(mappedBy = "behavioralRoutine", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<BehavioralMission> behavioralMissionList = new LinkedList<BehavioralMission>();
 
     public BehavioralRoutine() {
     }
@@ -35,5 +44,21 @@ public class BehavioralRoutine {
 
     public void setRoutineContainer(RoutineContainer routineContainer) {
         this.routineContainer = routineContainer;
+    }
+
+    public List<BehavioralMission> getBehavioralMissionList() {
+        return behavioralMissionList;
+    }
+
+    public void setBehavioralMissionList(List<BehavioralMission> behavioralMissionList) {
+        this.behavioralMissionList = behavioralMissionList;
+    }
+
+    public void addBehavioralMission(BehavioralMission mission){
+        this.behavioralMissionList.add(mission);
+    }
+
+    public void removeBehavioralMission(BehavioralMission mission){
+        this.behavioralMissionList.remove(mission);
     }
 }
