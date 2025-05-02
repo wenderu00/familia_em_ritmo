@@ -26,4 +26,9 @@ public class RelativeService {
     public Optional<Relative> getById(Long id){
         return relativeRepository.findById(id);
     }
+
+    public void remove(Long id){
+        Relative relative = this.relativeRepository.getReferenceById(id);
+        this.relativeRepository.delete(relative);
+    }
 }

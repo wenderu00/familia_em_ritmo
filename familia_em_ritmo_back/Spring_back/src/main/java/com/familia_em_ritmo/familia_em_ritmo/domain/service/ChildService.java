@@ -25,4 +25,9 @@ public class ChildService {
     public Child getById(Long id){
         return childRepository.findById(id).get();
     }
+
+    public void remove(Long id){
+        Child child = this.childRepository.getReferenceById(id);
+        this.childRepository.delete(child);
+    }
 }

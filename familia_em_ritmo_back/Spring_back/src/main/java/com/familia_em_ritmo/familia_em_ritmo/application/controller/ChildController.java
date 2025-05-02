@@ -12,6 +12,9 @@ import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_all.
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_by_id.ChildGetByIdResponseDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_by_id.ObserverListItemResponseDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.get_by_id.RoutineContainerGetByIdResponseDTO;
+import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.put_age.ChildNewAgeDTO;
+import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.put_name.ChildNewNameDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -88,6 +91,27 @@ public class ChildController {
                 )
         );
         return response;
+    }
 
+    @PutMapping("/name")
+    public ResponseEntity<Void> putChildName(@RequestParam(value = "id", required = true) Long id, @RequestBody ChildNewNameDTO name){
+        Child child = this.childService.getById(id);
+        child.setName(name.getName());
+        this.childService.create(child);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/age")
+    public ResponseEntity<Void> putChildAge(@RequestParam(value = "id", required = true) Long id, @RequestBody ChildNewAgeDTO age){
+        Child child = this.childService.getById(id);
+        child.setAge(age.getAge());
+        this.childService.create(child);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteChild(@RequestParam(value = "id", required = true) Long id){
+        this.childService.remove(id);
+        return ResponseEntity.noContent().build();
     }
 }

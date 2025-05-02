@@ -12,6 +12,8 @@ import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.get_a
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.get_all.RelativeItemListResponseDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.get_by_id.ChildListItemDTO;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.get_by_id.RelativeByIdResponseDTO;
+import com.familia_em_ritmo.familia_em_ritmo.infra.dto.relative_controller.put_relative_name.RelativeNewNameDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,6 +62,20 @@ public class RelativeController {
                         .toList()
         );
         return responseRelative;
+    }
+
+    @PutMapping("/name")
+    public ResponseEntity<Void> PutRelativeName(@RequestParam(value = "id", required = true) Long id, @RequestBody RelativeNewNameDTO name){
+        Relative relative = this.relativeService.getById(id).get();
+        relative.setName(name.getName());
+        this.relativeService.create(relative);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> DeleteRelative(@RequestParam(value= "id", required = true) Long id){
+        this.relativeService.remove(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/add_observer")
