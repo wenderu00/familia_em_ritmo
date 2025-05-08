@@ -16,6 +16,8 @@ public class GenericRoutine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "routine_container_id")
     @JsonBackReference
@@ -28,9 +30,10 @@ public class GenericRoutine {
     public GenericRoutine() {
     }
 
-    public GenericRoutine(Long id, RoutineContainer routineContainer) {
+    public GenericRoutine(Long id, RoutineContainer routineContainer, String name) {
         this.id = id;
         this.routineContainer = routineContainer;
+        this.name = name;
     }
 
     public Long getId() {
@@ -62,5 +65,13 @@ public class GenericRoutine {
 
     public void removeGenericMission(GenericMission mission){
         this.genericMissionList.remove(mission);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

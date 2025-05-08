@@ -1,6 +1,8 @@
 package com.familia_em_ritmo.familia_em_ritmo.application.controller;
 
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.routines.GenericRoutine;
+import com.familia_em_ritmo.familia_em_ritmo.domain.repository.routines.GenericRoutineRepository;
+import com.familia_em_ritmo.familia_em_ritmo.domain.service.routines.GenericRoutineService;
 import com.familia_em_ritmo.familia_em_ritmo.infra.dto.child_controller.create.ChildRequestDTO;
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.Child;
 import com.familia_em_ritmo.familia_em_ritmo.domain.model.Relative;
@@ -25,9 +27,11 @@ import java.util.Optional;
 public class ChildController {
     private ChildService childService;
     private RelativeService relativeService;
-    public ChildController(ChildService childService, RelativeService relativeService) {
+    private GenericRoutineService genericRoutineService;
+    public ChildController(ChildService childService, RelativeService relativeService, GenericRoutineService genericRoutineService) {
         this.childService = childService;
         this.relativeService = relativeService;
+        this.genericRoutineService = genericRoutineService;
     }
     @GetMapping
     public ListChildResponseDTO getAll(){

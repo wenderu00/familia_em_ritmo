@@ -91,4 +91,14 @@ public class RelativeController {
         }
         return new ObserverSucessMessageDTO("Fail");
     }
+
+    @DeleteMapping("/remove_observer")
+    public ResponseEntity<Void> removeObserverFromChild(@RequestParam(value = "observer_id") Long observerId, @RequestParam(value = "child_id") Long childId){
+        Relative observer = this.relativeService.getById(observerId).get();
+        Child child = this.childService.getById(childId);
+        child.removeObserver(observer);
+        this.relativeService.create(observer);
+        this.childService.create(child);
+        return ResponseEntity.noContent().build();
+    }
 }
